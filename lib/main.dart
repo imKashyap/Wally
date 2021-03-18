@@ -1,8 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:wally/screens/home_page.dart';
+import 'package:wally/screens/landing_page.dart';
+import 'package:wally/services/auth.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -10,14 +15,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // SystemChrome.setEnabledSystemUIOverlays([]);
-    return MaterialApp(
-      title: 'Wally',
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        fontFamily: 'GoogleSans',
+    return MultiProvider(
+      providers: [
+        Provider<AuthBase>.value(value: Auth()),
+      ],
+      child: MaterialApp(
+        title: 'Wally',
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          fontFamily: 'GoogleSans',
+        ),
+        debugShowCheckedModeBanner: false,
+        home: LandingPage(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
     );
   }
 }
@@ -53,3 +63,5 @@ class MyApp extends StatelessWidget {
 //     );
 //   }
 // }
+
+

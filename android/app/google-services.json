@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "205739040502",
+    "project_id": "wally-dddf1",
+    "storage_bucket": "wally-dddf1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205739040502:android:4f397927c18082ccce96d7",
+        "android_client_info": {
+          "package_name": "com.kashyap.wally"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205739040502-vb3mv7tstebnh1inkf656lia3iagnrpm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kashyap.wally",
+            "certificate_hash": "333aba0b4cd761e0c0aba6316956602778eb2891"
+          }
+        },
+        {
+          "client_id": "205739040502-hjiknh8g02oio0vcah8in4i5ikjkv377.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv8-iGXQkF0pXrhGI0j__CyApoPBxOeEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205739040502-hjiknh8g02oio0vcah8in4i5ikjkv377.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
