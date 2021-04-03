@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:wally/screens/categories_page.dart';
 import 'package:wally/screens/latest_page.dart';
@@ -28,28 +29,42 @@ class _HomePageState extends State<HomePage> {
                 style: Theme.of(context).textTheme.headline4),
           )),
       body: _pages[_selectedPage]['page'],
-      bottomNavigationBar: BottomNavigationBar(
+      // bottomNavigationBar: BottomNavigationBar(
+      //   onTap: _selectPage,
+      //   items: [
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.home_outlined),
+      //         activeIcon: Icon(Icons.home_filled),
+      //         label: 'Home'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.category_outlined),
+      //         activeIcon: Icon(Icons.category),
+      //         label: 'Categories'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.person_outline_outlined),
+      //         activeIcon: Icon(Icons.person),
+      //         label: 'User'),
+      //   ],
+      //   backgroundColor: Colors.transparent,
+      //   selectedItemColor: Color(0xFFF3AA4E),
+      //   currentIndex: _selectedPage,
+      //   showSelectedLabels: false,
+      //   showUnselectedLabels: false,
+      //   type: BottomNavigationBarType.fixed,
+      // ),
+      bottomNavigationBar: CurvedNavigationBar(
         onTap: _selectPage,
+        backgroundColor: Color(0xFF111820),
+        // color: Colors.red.shade900,
+        height: 60.0,
+        color: Color(0xFF316542),
         items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home_filled),
-              label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.category_outlined),
-              activeIcon: Icon(Icons.category),
-              label: 'Categories'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline_outlined),
-              activeIcon: Icon(Icons.person),
-              label: 'User'),
+          Icon(Icons.home_outlined),
+          Icon(Icons.category_outlined),
+          Icon(Icons.person_outline_outlined),
         ],
-        backgroundColor: Colors.transparent,
-        selectedItemColor: Color(0xFFF3AA4E),
-        currentIndex: _selectedPage,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
+        animationCurve: Curves.bounceInOut,
+        animationDuration: Duration(milliseconds: 300),
       ),
     );
   }
