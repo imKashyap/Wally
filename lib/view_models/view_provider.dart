@@ -6,7 +6,7 @@ import 'package:wally/screens/loading_page.dart';
 import 'package:wally/services/auth.dart';
 import 'package:provider/provider.dart';
 
-class LandingPage extends StatelessWidget {
+class ViewProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthBase auth = Provider.of<AuthBase>(context);

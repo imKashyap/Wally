@@ -43,7 +43,7 @@ class _AuthPageState extends State<AuthPage> {
             child: Column(
               children: [
                 Image.asset(
-                  'assets/images/logo.png',
+                  'assets/icons/logo.png',
                   scale: 3.5,
                 ),
                 SizedBox(height: myDim.height * 0.05),
@@ -91,7 +91,7 @@ class _AuthPageState extends State<AuthPage> {
                                 width: 23.0,
                                 height: 23.0,
                                 child: Image.asset(
-                                  'assets/images/google-logo.png',
+                                  'assets/icons/google-logo.png',
                                 ),
                               ),
                               const SizedBox(

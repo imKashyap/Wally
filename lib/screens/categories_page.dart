@@ -26,15 +26,16 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF111820),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: ListView.separated(
-          itemBuilder: (context, int index) =>
-              _buildCategoriesContainer(_categories[index], context),
-          itemCount: _categories.length,
-          separatorBuilder: (context, int index) => SizedBox(
-            height: 15.0,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: ListView.separated(
+            itemBuilder: (context, int index) =>
+                _buildCategoriesContainer(_categories[index], context),
+            itemCount: _categories.length,
+            separatorBuilder: (context, int index) => SizedBox(
+              height: 15.0,
+            ),
           ),
         ),
       ),

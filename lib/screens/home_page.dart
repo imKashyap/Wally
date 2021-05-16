@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:provider/provider.dart';
+import 'package:wally/models/viewer.dart';
 import 'package:wally/screens/categories_page.dart';
 import 'package:wally/screens/latest_page.dart';
-import 'package:wally/screens/user_page.dart';
+import 'package:wally/screens/account_page.dart';
+import 'package:wally/services/auth.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,6 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Viewer loggedInUser;
   int _selectedPage = 0;
   PageController _pageController;
   @override
@@ -26,21 +30,20 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    loggedInUser = Provider.of<AuthBase>(context).getCurrentUser();
     final List<Map<String, dynamic>> _pages = [
       {'page': LatestPage(), 'title': 'Popular now'},
       {'page': CategoriesPage(), 'title': 'Categories'},
-      {'page': UserPage(), 'title': 'User'}
+      {'page': AccountPage(loggedInUser), 'title': 'Account'}
     ];
 
     return Scaffold(
-        backgroundColor: Colors.black,
-        appBar: AppBar(
-            backgroundColor: Color(0xFF111820),
-            title: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(_pages[_selectedPage]['title'],
-                  style: Theme.of(context).textTheme.headline6),
-            )),
+        // appBar: AppBar(
+        //     title: Padding(
+        //   padding: const EdgeInsets.all(8.0),
+        //   child: Text(_pages[_selectedPage]['title'],
+        //       style: Theme.of(context).textTheme.headline6),
+        // )),
         //body: _pages[_selectedPage]['page'],
         body: SizedBox.expand(
           child: PageView(
@@ -81,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     GButton(
                       icon: Icons.person_outline_outlined,
-                      text: 'User',
+                      text: 'Account',
                     ),
                   ],
                   selectedIndex: _selectedPage,
