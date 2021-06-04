@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class InfoPage extends StatelessWidget {
+class Info extends StatelessWidget {
   String info =
       'I am currently a pre-final year student under Electrical Engineering in IEM, Kolkata. I have a no. of flutter apps on Github.';
   @override
@@ -30,7 +30,7 @@ class InfoPage extends StatelessWidget {
                     tag: 'logo',
                     child: Image.asset(
                       'assets/icons/logo.png',
-                      scale: 1,
+                      scale: 4.5,
                     ),
                   ),
                   Column(
@@ -38,7 +38,7 @@ class InfoPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Flamingo',
+                        'Wally',
                         style: Theme.of(context)
                             .textTheme
                             .headline6

@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:wally/services/auth.dart';
 import 'package:wally/utils/dimensions.dart';
 
-class AuthPage extends StatefulWidget {
+class Login extends StatefulWidget {
   @override
-  _AuthPageState createState() => _AuthPageState();
+  _LoginState createState() => _LoginState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _LoginState extends State<Login> {
   bool _isLoading = false;
   Dimensions myDim;
   @override
@@ -128,7 +128,7 @@ class _AuthPageState extends State<AuthPage> {
       final auth = Provider.of<AuthBase>(context, listen: false);
       await auth.signInWithGoogle();
     } on PlatformException catch (e) {
-      print('Login Error: ' + e.code);
+      print('Login Error: ' + e.message);
       setState(() {
         _isLoading = false;
       });

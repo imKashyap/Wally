@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:wally/models/viewer.dart';
-import 'package:wally/screens/categories_page.dart';
-import 'package:wally/screens/latest_page.dart';
-import 'package:wally/screens/account_page.dart';
 import 'package:wally/services/auth.dart';
+import 'package:wally/views/account/account.dart';
+import 'package:wally/views/categories/categories.dart';
+import 'package:wally/views/curated/curated.dart';
 
-class HomePage extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeState createState() => _HomeState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeState extends State<Home> {
   Viewer loggedInUser;
   int _selectedPage = 0;
   PageController _pageController;
@@ -32,9 +32,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     loggedInUser = Provider.of<AuthBase>(context).getCurrentUser();
     final List<Map<String, dynamic>> _pages = [
-      {'page': LatestPage(), 'title': 'Popular now'},
-      {'page': CategoriesPage(), 'title': 'Categories'},
-      {'page': AccountPage(loggedInUser), 'title': 'Account'}
+      {'page': Curated(loggedInUser: loggedInUser,), 'title': 'Popular now'},
+      {'page': Categories(), 'title': 'Categories'},
+      {'page': Account(loggedInUser), 'title': 'Account'}
     ];
 
     return Scaffold(
@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
               child: GNav(
+                  
                   rippleColor: Colors.grey[500],
                   hoverColor: Colors.grey[900],
                   gap: 8,
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                   iconSize: 24,
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   duration: Duration(milliseconds: 400),
-                  tabBackgroundColor: Color(0xFF111820),
+                  tabBackgroundColor: Theme.of(context).accentColor,
                   tabs: [
                     GButton(
                       icon: Icons.home_outlined,

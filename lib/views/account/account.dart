@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wally/models/viewer.dart';
-import 'package:wally/screens/info_page.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:wally/utils/router.dart';
 import 'package:wally/utils/theme_config.dart';
 import 'package:wally/view_models/app_provider.dart';
+import 'package:wally/views/info/info.dart';
 
-class AccountPage extends StatefulWidget {
+class Account extends StatefulWidget {
   final Viewer loggedInUser;
-  const AccountPage(this.loggedInUser);
+  const Account(this.loggedInUser);
   @override
-  _AccountPageState createState() => _AccountPageState();
+  _AccountState createState() => _AccountState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _AccountState extends State<Account> {
   List items;
 
   @override
@@ -28,7 +29,7 @@ class _AccountPageState extends State<AccountPage> {
       {
         'icon': Feather.download,
         'title': 'Downloads',
-        'function': (){},
+        'function': () {},
       },
       {
         'icon': Feather.moon,
@@ -38,18 +39,17 @@ class _AccountPageState extends State<AccountPage> {
       {
         'icon': Feather.info,
         'title': 'About',
-        'function': () => Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => InfoPage(), fullscreenDialog: true)),
+        'function': () => _pushPage(Info()),
       },
       {
         'icon': Feather.file_text,
         'title': 'Licenses',
-        'function': (){},
+        'function': () {},
       },
-       {
+      {
         'icon': Icons.exit_to_app,
         'title': 'Sign Out',
-        'function': (){},
+        'function': () {},
       },
     ];
   }
@@ -68,8 +68,15 @@ class _AccountPageState extends State<AccountPage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(widget.loggedInUser.imgUrl),
+                leading: Container(
+                  width: 60.0,
+                  height: 60.0,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                        image: NetworkImage(widget.loggedInUser.imgUrl)),
+                  ),
                 ),
                 title: Text(
                   widget.loggedInUser.name,
@@ -133,5 +140,9 @@ class _AccountPageState extends State<AccountPage> {
         }
       },
     );
+  }
+
+    _pushPage(Widget page) {
+    MyRouter.pushPage(context, page);
   }
 }

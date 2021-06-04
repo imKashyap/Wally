@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "205739040502-vb3mv7tstebnh1inkf656lia3iagnrpm.apps.googleusercontent.com",
+          "client_id": "205739040502-24njkfpb2m1ak9rqp1dmfs47livro1n8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.kashyap.wally",
-            "certificate_hash": "333aba0b4cd761e0c0aba6316956602778eb2891"
+            "certificate_hash": "2e40b4707c1601c5844cdaff3b523a761d4428b1"
           }
         },
         {

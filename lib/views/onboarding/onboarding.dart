@@ -1,15 +1,13 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:wally/models/onboard_slider.dart';
 import 'package:wally/view_models/view_provider.dart';
 
-class OnboardingPage extends StatefulWidget {
+class Onboarding extends StatefulWidget {
   @override
-  _OnboardingPageState createState() => _OnboardingPageState();
+  _OnboardingState createState() => _OnboardingState();
 }
 
-class _OnboardingPageState extends State<OnboardingPage> {
+class _OnboardingState extends State<Onboarding> {
   List<SliderModel> mySLides = [];
   int slideIndex = 0;
   PageController controller;

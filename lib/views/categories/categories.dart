@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CategoriesPage extends StatelessWidget {
+class Categories extends StatelessWidget {
   List<String> _categories = [
     'Abstract',
     'Animals',
