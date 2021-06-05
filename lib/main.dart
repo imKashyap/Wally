@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:wally/view_models/category_details_provider.dart';
 import 'package:wally/view_models/home_provider.dart';
 import 'package:wally/view_models/view_provider.dart';
 import 'package:wally/views/onboarding/onboarding.dart';
@@ -10,7 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wally/utils/consts.dart';
 import 'package:wally/utils/theme_config.dart';
 import 'package:wally/view_models/app_provider.dart';
-
 
 int initScreen;
 Future<void> main() async {
@@ -25,6 +25,7 @@ Future<void> main() async {
         Provider<AuthBase>.value(value: Auth()),
         ChangeNotifierProvider(create: (_) => AppProvider()),
         ChangeNotifierProvider(create: (_) => HomeProvider()),
+        ChangeNotifierProvider(create: (_) => CategoryDetailsProvider()),
       ],
       child: MyApp(),
     ),
@@ -43,7 +44,9 @@ class MyApp extends StatelessWidget {
           title: Constants.appName,
           theme: themeData(appProvider.theme, context),
           darkTheme: themeData(ThemeConfig.darkTheme, context),
-          home: initScreen == 0 || initScreen == null ?Onboarding():ViewProvider(),
+          home: initScreen == 0 || initScreen == null
+              ? Onboarding()
+              : ViewProvider(),
         );
       },
     );

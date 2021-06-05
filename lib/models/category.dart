@@ -1,16 +1,22 @@
 import 'package:wally/models/photo.dart';
 
-class Category {
+class CategoryDetails {
+  String name;
   int page;
   int perPage;
   List<Photo> photos;
   int totalResults;
   String nextPage;
 
-  Category(
-      {this.page, this.perPage, this.photos, this.totalResults, this.nextPage});
+  CategoryDetails(
+      {this.name,
+      this.page,
+      this.perPage,
+      this.photos,
+      this.totalResults,
+      this.nextPage});
 
-  Category.fromJson(Map<String, dynamic> json) {
+  CategoryDetails.fromJson(Map<String, dynamic> json) {
     page = json['page'];
     perPage = json['per_page'];
     if (json['photos'] != null) {
@@ -35,4 +41,3 @@ class Category {
     return data;
   }
 }
-

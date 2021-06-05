@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:wally/components/body_builder.dart';
 import 'package:wally/components/search_results.dart';
+import 'package:wally/components/user_info_dialog.dart';
 import 'package:wally/models/viewer.dart';
 import 'package:wally/view_models/home_provider.dart';
 
@@ -15,7 +17,6 @@ class Curated extends StatefulWidget {
 
 class _CuratedState extends State<Curated> with AutomaticKeepAliveClientMixin {
   FloatingSearchBarController controller;
-
   @override
   void initState() {
     super.initState();
@@ -31,122 +32,121 @@ class _CuratedState extends State<Curated> with AutomaticKeepAliveClientMixin {
     super.build(context);
     return Consumer<HomeProvider>(
       builder: (BuildContext context, HomeProvider homeProvider, Widget child) {
-        return Scaffold(
-          body: FloatingSearchBar(
-            controller: controller,
-            body: FloatingSearchBarScrollNotifier(
-              child: SearchResultsListView(
-                searchTerm: selectedTerm,
-              ),
-            ),
-            transition: CircularFloatingSearchBarTransition(),
-            physics: BouncingScrollPhysics(),
-            title: Text(
-              selectedTerm ?? 'Search in Wally',
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-            hint: 'Search over million walls...',
-            actions: [
-              FloatingSearchBarAction(
+        return FloatingSearchBar(
+          controller: controller,
+          body:
+              FloatingSearchBarScrollNotifier(child: _buildBody(homeProvider)),
+          transition: CircularFloatingSearchBarTransition(),
+          physics: BouncingScrollPhysics(),
+          title: Text(
+            selectedTerm ?? 'Search in Wally',
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1
+                .copyWith(color: Colors.grey),
+          ),
+          hint: 'Search over million walls...',
+          actions: [
+            FloatingSearchBarAction.icon(
                 showIfOpened: false,
-                child: Container(
-                  width: 37.0,
-                  height: 37.0,
+                icon: Container(
+                  width: 34.0,
+                  height: 34.0,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
-                      fit: BoxFit.cover,
+                        fit: BoxFit.cover,
                         image: NetworkImage(widget.loggedInUser.imgUrl)),
                   ),
                 ),
-              ),
-              FloatingSearchBarAction.searchToClear(
-                showIfClosed: false,
-              ),
-            ],
-            onQueryChanged: (query) {
-              setState(() {
-                filteredSearchHistory = filterSearchTerms(filter: query);
-              });
-            },
-            onSubmitted: (query) {
-              setState(() {
-                addSearchTerm(query);
-                selectedTerm = query;
-              });
-              controller.close();
-            },
-            builder: (context, transition) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Material(
-                  color: Colors.white,
-                  elevation: 4,
-                  child: Builder(
-                    builder: (context) {
-                      if (filteredSearchHistory.isEmpty &&
-                          controller.query.isEmpty) {
-                        return Container(
-                          height: 56,
-                          width: double.infinity,
-                          alignment: Alignment.center,
-                          child: Text(
-                            'Start searching',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        );
-                      } else if (filteredSearchHistory.isEmpty) {
-                        return ListTile(
-                          title: Text(controller.query),
-                          leading: const Icon(Icons.search),
-                          onTap: () {
-                            setState(() {
-                              addSearchTerm(controller.query);
-                              selectedTerm = controller.query;
-                            });
-                            controller.close();
-                          },
-                        );
-                      } else {
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: filteredSearchHistory
-                              .map(
-                                (term) => ListTile(
-                                  title: Text(
-                                    term,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  leading: const Icon(Icons.history),
-                                  trailing: IconButton(
-                                    icon: const Icon(Icons.clear),
-                                    onPressed: () {
-                                      setState(() {
-                                        deleteSearchTerm(term);
-                                      });
-                                    },
-                                  ),
-                                  onTap: () {
+                onTap: () {
+                  _showUserDialog();
+                }),
+            FloatingSearchBarAction.searchToClear(
+              showIfClosed: false,
+            ),
+          ],
+          onQueryChanged: (query) {
+            setState(() {
+              filteredSearchHistory = filterSearchTerms(filter: query);
+            });
+          },
+          onSubmitted: (query) {
+            setState(() {
+              addSearchTerm(query);
+              selectedTerm = query;
+            });
+            controller.close();
+          },
+          builder: (context, transition) {
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Material(
+                elevation: 4,
+                child: Builder(
+                  builder: (context) {
+                    if (filteredSearchHistory.isEmpty &&
+                        controller.query.isEmpty) {
+                      return Container(
+                        height: 56,
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        child: Text(
+                          'Start searching',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                      );
+                    } else if (filteredSearchHistory.isEmpty) {
+                      return ListTile(
+                        title: Text(controller.query),
+                        leading: const Icon(Icons.search),
+                        onTap: () {
+                          setState(() {
+                            addSearchTerm(controller.query);
+                            selectedTerm = controller.query;
+                          });
+                          controller.close();
+                        },
+                      );
+                    } else {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: filteredSearchHistory
+                            .map(
+                              (term) => ListTile(
+                                title: Text(
+                                  term,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                leading: const Icon(Icons.history),
+                                trailing: IconButton(
+                                  icon: const Icon(Icons.clear),
+                                  onPressed: () {
                                     setState(() {
-                                      putSearchTermFirst(term);
-                                      selectedTerm = term;
+                                      deleteSearchTerm(term);
                                     });
-                                    controller.close();
                                   },
                                 ),
-                              )
-                              .toList(),
-                        );
-                      }
-                    },
-                  ),
+                                onTap: () {
+                                  setState(() {
+                                    putSearchTermFirst(term);
+                                    selectedTerm = term;
+                                  });
+                                  controller.close();
+                                },
+                              ),
+                            )
+                            .toList(),
+                      );
+                    }
+                  },
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         );
       },
     );
@@ -202,5 +202,25 @@ class _CuratedState extends State<Curated> with AutomaticKeepAliveClientMixin {
   void putSearchTermFirst(String term) {
     deleteSearchTerm(term);
     addSearchTerm(term);
+  }
+
+  Future<void> _showUserDialog() async {
+    return showDialog<void>(
+      context: context, // user must tap button!
+      builder: (BuildContext context) {
+        return UserInfoDialog(loggedInUser: widget.loggedInUser);
+      },
+    );
+  }
+
+  Widget _buildBody(HomeProvider homeProvider) {
+    return BodyBuilder(
+      apiRequestStatus: homeProvider.apiRequestStatus,
+      child: SearchResultsListView(
+        searchTerm: selectedTerm,
+        homeProvider: homeProvider,
+      ),
+      reload: () => homeProvider.getFeeds(),
+    );
   }
 }

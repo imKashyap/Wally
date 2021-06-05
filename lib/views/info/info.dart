@@ -9,7 +9,6 @@ class Info extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
         title: Text('About'),
       ),
@@ -148,7 +147,7 @@ class Info extends StatelessWidget {
               alignment: Alignment.center,
               padding: EdgeInsets.all(10.0),
               child: Text(
-                '© Rahul Kashyap',
+                'Powered by pexels.com',
                 style: Theme.of(context)
                     .textTheme
                     .bodyText2

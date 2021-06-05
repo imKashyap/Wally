@@ -3,12 +3,12 @@ import 'package:wally/components/error_widget.dart';
 import 'package:wally/components/loading_widget.dart';
 import 'package:wally/utils/enum/api_request_status.dart';
 
-class FeedBuilder extends StatelessWidget {
+class BodyBuilder extends StatelessWidget {
   final APIRequestStatus apiRequestStatus;
   final Widget child;
   final Function reload;
 
-  FeedBuilder(
+  BodyBuilder(
       {Key key,
       @required this.apiRequestStatus,
       @required this.child,
